@@ -30,7 +30,7 @@ class CreateUserService {
       name: user.name,
       email: user.email,
       password: passwordHash,
-      admin: user.admin
+      admin: user.admin || false
     })
 
     await this.userRepository.save(userSave)
