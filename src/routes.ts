@@ -3,21 +3,26 @@ import { AuthenticateUserController } from './controllers/AuthenticateUserContro
 import { CreateComplimentController } from './controllers/CreateComplimentController'
 import { CreateTagController } from './controllers/CreateTagController'
 import { CreateUserController } from './controllers/CreateUserController'
-import { userAdmin } from './middlewares/UserAdminMiddleware'
+import { FindUserReceiverComplimentsController } from './controllers/FindUserReceiverComplimentsController'
+import { FindUserSenderComplimentsController } from './controllers/FindUserSenderComplimentsController'
 import { authenticate } from './middlewares/AuthenticateMiddleware'
+import { userAdmin } from './middlewares/UserAdminMiddleware'
 
 const router = Router()
 
-const createUserController = new CreateUserController()
-router.post('/users', createUserController.handle)
-
 const createTagController = new CreateTagController()
-router.post('/tags', authenticate, userAdmin, createTagController.handle)
-
+const createUserController = new CreateUserController()
 const authenticateUserController = new AuthenticateUserController()
-router.post('/login', authenticateUserController.handle)
-
 const createComplimentController = new CreateComplimentController()
+const findUserReceiverComplimentsController = new FindUserReceiverComplimentsController()
+const findUserSenderComplimentsController = new FindUserSenderComplimentsController()
+
+router.post('/login', authenticateUserController.handle)
+router.post('/users', createUserController.handle)
+router.get('/users/current/compliments/received', authenticate, findUserReceiverComplimentsController.handle)
+router.get('/users/current/compliments/sended', authenticate, findUserSenderComplimentsController.handle)
+router.post('/tags', authenticate, userAdmin, createTagController.handle)
 router.post('/compliments', authenticate, createComplimentController.handle)
 
 export { router }
+

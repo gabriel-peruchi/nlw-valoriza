@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from 'express'
-import { FindByIdUserService } from '../services/FindByIdUserService'
+import { FindUserByIdService } from '../services/FindUserByIdService'
 
 async function userAdmin(request: Request, response: Response, next: NextFunction) {
   const { userId } = request
 
-  const findByIdUserService = new FindByIdUserService()
-  const { admin } = await findByIdUserService.execute(userId)
+  const findUserByIdService = new FindUserByIdService()
+  const { admin } = await findUserByIdService.execute(userId)
 
   if (admin) {
     return next()

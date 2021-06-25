@@ -2,7 +2,7 @@ import { getCustomRepository, Repository } from 'typeorm'
 import { User } from '../entities/User'
 import { UserRepository } from '../repositories/UserRepository'
 
-class FindByIdUserService {
+class FindUserByIdService {
   private userRepository: Repository<User>
 
   async execute(id: string) {
@@ -14,5 +14,5 @@ class FindByIdUserService {
   }
 }
 
-export { FindByIdUserService }
+export { FindUserByIdService }
 
