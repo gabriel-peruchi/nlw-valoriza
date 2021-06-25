@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
 
 function error(error: Error, request: Request, response: Response, next: NextFunction) {
+  console.error(error)
+
   if (error instanceof Error) {
     return response.status(400).json({ error: error.message })
   }
